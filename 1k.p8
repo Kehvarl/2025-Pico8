@@ -2,34 +2,36 @@ pico-8 cartridge // http://www.pico-8.com
 version 43
 __lua__
 function _init()
-sa=1
-d=5
-ex,ey=50,55
-b=0
+ sa=1
+ d=5
+ ex,ey=rnd(64)+16,rnd(64)+16
+ b=0
 end
+
 function _update()
-d-=1
-if d>0 then return end
-d=3
-sa-=0.05
-if sa==0 then sa=1end
-sx=64+cos(sa)*32
-sy=64+sin(sa)*32
-dx=sx-64
-dy=sy-64
-t =((ex-64)*dx + (ey-64)*dy) / (dx*dx + dy*dy)
-if t >= 0 and t <= 1 then
- px = 64 + dx * t
- py = 64 + dy * t
- if abs(px-ex) < 1 and abs(py-ey) < 1 then
-  b=15
+ d-=1
+ if d>0 then return end
+ d=3
+ sa-=0.05
+ if sa==0 then sa=1end
+ sx=64+cos(sa)*48
+ sy=64+sin(sa)*48
+ dx=sx-64
+ dy=sy-64
+ t =((ex-64)*dx + (ey-64)*dy) / (dx*dx + dy*dy)
+ if t >= 0 and t <= 1 then
+  px = 64 + dx * t
+  py = 64 + dy * t
+  if abs(px-ex) < 1 and abs(py-ey) < 1 then
+   b=15
+  end
  end
+ if b>0 then b-=1end
 end
-if b>0 then b-=1end
-end
+
 function _draw()
-cls()
-line(64,64,sx,sy,11)
+ cls()
+ line(64,64,sx,sy,11)
   if b>0 then
     circfill(ex, ey, 1, flr(b))
   end
