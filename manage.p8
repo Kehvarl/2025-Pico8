@@ -3,8 +3,35 @@ version 43
 __lua__
 function _init()
 m={x=10,y=10,c="😐",co=7}
+e={}
+add(e,{x=rnd(15),y=rnd(15),c="🐱",co=rnd(3)+2,stay=0})
 end
 function _update()
+update_m()
+foreach(e,update_e)
+end
+function update_e(en)
+if en.stay > 0 then
+ en.stay -= 1
+else
+vx = rnd(2)-1
+vy = rnd(2)-1
+
+local dx = en.x - m.x
+local dy = en.y - m.y
+local d2 = dx*dx + dy*dy
+if d2 < 4 then
+  vx = vx + dx
+  vy = vy + dy
+end
+en.x += vx
+en.y += vy
+en.stay = 5
+end
+en.x=mid(0,en.x,15)
+en.y=mid(0,en.y,15)
+end
+function update_m()
 if btn(0) then m.x -= 1 end
 if btn(1) then m.x += 1 end
 if btn(2) then m.y -= 1 end
@@ -20,6 +47,9 @@ print("░",x*9,y*6,1)
 end
 end
 print(m.c,m.x*8,m.y*8,m.co)
+for en in all(e)do
+print(en.c,en.x*8,en.y*8,en.co)
+end
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
