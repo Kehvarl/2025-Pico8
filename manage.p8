@@ -4,7 +4,9 @@ __lua__
 function _init()
 m={x=10,y=10,c="😐",co=7}
 e={}
+for i=1,2do
 add(e,{x=rnd(15),y=rnd(15),c="🐱",co=rnd(3)+2,stay=0})
+end
 end
 function _update()
 update_m()
